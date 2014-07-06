@@ -1,9 +1,10 @@
-================
-template-formula
-================
+========================
+GMusicProcurator formula
+========================
 
-A saltstack formula that is empty. It has dummy content to help with a quick
-start on a new formula.
+A Saltstack formula for the GMusicProcurator_ web application.
+
+.. _GMusicProcurator: https://gmusicprocurator.readthedocs.org/
 
 .. note::
 
@@ -11,12 +12,12 @@ start on a new formula.
     <http://docs.saltstack.com/topics/conventions/formulas.html>`_.
 
 Available states
-================
+----------------
 
 .. contents::
     :local:
 
-``template``
-------------
+``gmusicprocurator``
+~~~~~~~~~~~~~~~~~~~~
 
-Installs the template package, and starts the associated template service.
+Installs the gmusicprocurator package in a virtual environment.
