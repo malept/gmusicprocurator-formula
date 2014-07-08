@@ -1,7 +1,14 @@
-{% set template = salt['grains.filter_by']({
-    'default': {
-        'pkg': 'template',
-        'service': 'template',
-        'config': '/etc/template.conf',
-    },
-}, merge=salt['pillar.get']('template:lookup')) %}
+{% set pillar_get = salt['pillar.get'] %}
+{% set user = pillar_get('gmusicprocurator:user') %}
+{% set gmusicprocurator = {
+    'user': user,
+    'group': pillar_get('gmusicprocurator:group', user),
+    'user_config_dir': salt['grains.filter_by']({
+        'MacOS': '/Users/{0}/Library/Application Support'.format(user),
+        'default': '/home/{0}/.config'.format(user),
+    }),
+    'frontend_enabled': pillar_get('gmusicprocurator:frontend:enabled'),
+    'install_dir': pillar_get('gmusicprocurator:install_dir'),
+    'use_wheels': pillar_get('gmusicprocurator:use_wheels'),
+    'virtualenv_dir': pillar_get('gmusicprocurator:virtualenv_dir'),
+} %}

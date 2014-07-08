@@ -1,3 +1,11 @@
-template:
-  lookup:
-    master: template-master
+# vim: set ft=sls :
+gmusicprocurator:
+  # REQUIRED
+  install_dir: /home/alice/gmusicprocurator
+  user: alice
+  virtualenv_dir: /home/alice/virtualenv
+  # OPTIONAL
+  group: alice
+  frontend:
+    enabled: True
+  use_wheels: True
