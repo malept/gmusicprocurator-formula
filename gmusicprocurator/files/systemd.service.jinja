@@ -1,0 +1,10 @@
+[Unit]
+Description=Google Music proxy/frontend for streaming
+After=network.target
+
+[Service]
+Type=simple
+PIDFile={{ pid_file }}
+Environment=XDG_DATA_HOME={{ service_config_dir }} GMUSICPROCURATOR_SETTINGS={{ service_config_dir }}/gmusicprocurator.cfg
+ExecStart={{ virtualenv_dir }}/bin/gunicorn --bind={{ service_host }}:{{ service_port }} --user={{ user }} --pid={{ pid_file }} --log-file {{ log_file }} --threads=2 --preload gmusicprocurator:app
+KillMode=mixed

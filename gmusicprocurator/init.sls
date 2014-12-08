@@ -1,3 +1,9 @@
+{% from "gmusicprocurator/map.jinja" import gmusicprocurator with context -%}
 include:
-  - .user-config
   - .virtualenv
+{%- if gmusicprocurator.use_service %}
+  - .service
+  - .user
+{%- else %}
+  - .user-config
+{%- endif %}

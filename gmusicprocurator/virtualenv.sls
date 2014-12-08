@@ -13,6 +13,12 @@ gmp-requirements-deps:
     - require:
       - {{ npm_requirement }}
       - git: gmusicprocurator
+  cmd.run:
+    - name: node_modules/.bin/bower install
+    - user: {{ gmusicprocurator.user }}
+    - cwd: {{ gmusicprocurator.install_dir }}
+    - require:
+      - npm: gmp-requirements-deps
 {%- endif %}
 
 gmp-install-dir:
@@ -58,7 +64,16 @@ gmusicprocurator:
     - require:
       - pkg: gmp-requirements-deps
 {%- if gmusicprocurator.frontend_enabled %}
-      - npm: gmp-requirements-deps
+      - cmd: gmp-requirements-deps
       - git: gmusicprocurator
       - file: gmp-venv-dir
 {%- endif %}
+  pip.installed:
+    - editable: {{ gmusicprocurator.install_dir }}
+    - bin_env: {{ gmusicprocurator.virtualenv_dir }}
+    - user: {{ gmusicprocurator.user }}
+{%- if gmusicprocurator.use_wheels %}{# requires pip >= 1.4 #}
+    - use_wheel: True
+{%- endif %}
+    - require:
+      - virtualenv: gmusicprocurator
