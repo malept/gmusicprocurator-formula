@@ -2,13 +2,13 @@
 {% if gmusicprocurator.use_service -%}
 gmp-service-definition:
   file.managed:
-{% if gmusicprocurator.use_systemd -%}
+{%- if gmusicprocurator.use_systemd %}
     - name: /lib/systemd/system/gmusicprocurator.service
     - source: salt://gmusicprocurator/files/systemd.service.jinja
-{% elif gmusicprocurator.use_sysvinit -%}
+{%- elif gmusicprocurator.use_sysvinit %}
     - name: /etc/init.d/gmusicprocurator
     - source: salt://gmusicprocurator/files/sysvinit/init.d.jinja
-{% endif -%}
+{%- endif %}
     - user: root
     - group: root
     - mode: 644
