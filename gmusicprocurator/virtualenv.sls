@@ -2,8 +2,12 @@
 gmp-requirements-deps:
   pkg.installed:
     - names:
-      - python-dev
+      - gcc
       - git
+      - libffi-dev
+      - libssl-dev
+      - python-dev
+      - python-pip
       - python-virtualenv
 {%- if gmusicprocurator.frontend_enabled %}
 {%- from 'node/map.jinja' import npm_requirement with context %}
@@ -48,6 +52,7 @@ gmusicprocurator:
     - user: {{ gmusicprocurator.user }}
     - require:
       - file: gmp-install-dir
+      - pkg: gmp-requirements-deps
   virtualenv.managed:
     - name: {{ gmusicprocurator.virtualenv_dir }}
     # The following directive fixes relative dirs for requirements*.txt for some reason
