@@ -1,0 +1,35 @@
+---
+driver:
+  name: docker
+driver_config:
+  require_chef_omnibus: false
+  use_sudo: false
+
+provisioner:
+  name: salt_solo
+  formula: gmusicprocurator
+  salt_version: '2014.1.13'
+  salt_install: apt
+  salt_apt_repo: http://debian.saltstack.com/debian
+  salt_apt_repo_key: http://debian.saltstack.com/debian-salt-team-joehealy.gpg.key
+  state_top:
+    base:
+      '*':
+        - gmusicprocurator
+
+platforms:
+  - name: debian
+
+suites:
+  - name: default
+    provisioner:
+      pillars:
+        top.sls:
+          base:
+            '*':
+              - gmusicprocurator
+        gmusicprocurator.sls:
+          gmusicprocurator:
+            install_dir: /home/kitchen/gmusicprocurator
+            user: kitchen
+            virtualenv_dir: /home/kitchen/virtualenv
