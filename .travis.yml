@@ -4,4 +4,4 @@ rvm: 2.2.3
 services:
 - docker
 
-script: kitchen test
+script: bundle exec kitchen test
